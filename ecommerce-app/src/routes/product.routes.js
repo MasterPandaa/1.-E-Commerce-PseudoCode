@@ -1,11 +1,11 @@
-import { Router } from 'express';
-import * as productController from '../controllers/product.controller.js';
-import { validate } from '../middleware/validation.js';
-import { body, query, param } from 'express-validator';
-import { authMiddleware, requireRole } from '../middleware/auth.js';
-import { upload } from '../middleware/upload.js';
+import { Router } from 'express'
+import * as productController from '../controllers/product.controller.js'
+import { validate } from '../middleware/validation.js'
+import { body, query, param } from 'express-validator'
+import { authMiddleware, requireRole } from '../middleware/auth.js'
+import { upload } from '../middleware/upload.js'
 
-const router = Router();
+const router = Router()
 
 // PSEUDO: Create Product
 router.post(
@@ -18,10 +18,10 @@ router.post(
     body('description').isLength({ min: 10, max: 5000 }),
     body('price').isFloat({ gt: 0 }),
     body('categoryId').isInt({ gt: 0 }),
-    body('stock').isInt({ min: 0 }),
+    body('stock').isInt({ min: 0 })
   ]),
   productController.createProduct
-);
+)
 
 // PSEUDO: Get All Products
 router.get(
@@ -35,17 +35,24 @@ router.get(
     query('priceMax').optional().isFloat({ min: 0 }),
     query('sort')
       .optional()
-      .isIn(['created_desc', 'created_asc', 'price_asc', 'price_desc', 'name_asc', 'name_desc']),
+      .isIn([
+        'created_desc',
+        'created_asc',
+        'price_asc',
+        'price_desc',
+        'name_asc',
+        'name_desc'
+      ])
   ]),
   productController.listProducts
-);
+)
 
 // PSEUDO: Get Single Product
 router.get(
   '/:id',
   validate([param('id').isInt({ min: 1 })]),
   productController.getProduct
-);
+)
 
 // PSEUDO: Update Product
 router.put(
@@ -55,7 +62,7 @@ router.put(
   upload.single('image'),
   validate([param('id').isInt({ min: 1 })]),
   productController.updateProduct
-);
+)
 
 // PSEUDO: Delete Product
 router.delete(
@@ -64,6 +71,6 @@ router.delete(
   requireRole('admin'),
   validate([param('id').isInt({ min: 1 })]),
   productController.deleteProduct
-);
+)
 
-export default router;
+export default router
