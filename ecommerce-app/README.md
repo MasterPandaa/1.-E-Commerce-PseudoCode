@@ -6,6 +6,7 @@ This project implements a full-featured e-commerce backend based on a two-phase 
 - Phase 2: Implementation based on pseudo-code
 
 ## Tech Stack
+
 - Node.js, Express.js
 - MySQL (mysql2/promise)
 - JWT for authentication
@@ -16,6 +17,7 @@ This project implements a full-featured e-commerce backend based on a two-phase 
 - PDFKit for invoice generation
 
 ## Getting Started
+
 1. Copy `.env.example` to `.env` and set your values.
 2. Create MySQL database and run SQL in `database/schema.sql`.
 3. Install dependencies:
@@ -24,6 +26,7 @@ This project implements a full-featured e-commerce backend based on a two-phase 
    - npm run dev
 
 ## API Overview
+
 - Auth routes under `/api/auth`
 - Product routes under `/api/products`
 - Cart routes under `/api/cart`
@@ -31,5 +34,5 @@ This project implements a full-featured e-commerce backend based on a two-phase 
 - Admin routes under `/api/admin`
 
 ## Pseudo-code ↔ Code Mapping
-Each service/controller function contains comments referencing its corresponding pseudo-code section. Search for `// PSEUDO:` comments in the codebase.
 
+Each service/controller function contains comments referencing its corresponding pseudo-code section. Search for `// PSEUDO:` comments in the codebase.

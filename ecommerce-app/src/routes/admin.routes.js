@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import { authMiddleware, requireRole } from '../middleware/auth.js';
-import * as adminController from '../controllers/admin.controller.js';
-import { validate } from '../middleware/validation.js';
-import { body, query, param } from 'express-validator';
+import { Router } from 'express'
+import { authMiddleware, requireRole } from '../middleware/auth.js'
+import * as adminController from '../controllers/admin.controller.js'
+import { validate } from '../middleware/validation.js'
+import { body, query, param } from 'express-validator'
 
-const router = Router();
+const router = Router()
 
 // PSEUDO: Sales stats
 router.get(
@@ -14,10 +14,10 @@ router.get(
   validate([
     query('startDate').optional().isISO8601(),
     query('endDate').optional().isISO8601(),
-    query('groupBy').optional().isIn(['day', 'week', 'month']),
+    query('groupBy').optional().isIn(['day', 'week', 'month'])
   ]),
   adminController.getSalesStats
-);
+)
 
 // PSEUDO: Order list
 router.get(
@@ -25,7 +25,7 @@ router.get(
   authMiddleware,
   requireRole('admin'),
   adminController.getOrders
-);
+)
 
 // PSEUDO: Update order status
 router.patch(
@@ -34,10 +34,16 @@ router.patch(
   requireRole('admin'),
   validate([
     param('id').isInt({ min: 1 }),
-    body('status').isIn(['pending', 'paid', 'shipped', 'delivered', 'cancelled']),
+    body('status').isIn([
+      'pending',
+      'paid',
+      'shipped',
+      'delivered',
+      'cancelled'
+    ])
   ]),
   adminController.updateOrderStatus
-);
+)
 
 // PSEUDO: User list
 router.get(
@@ -45,7 +51,7 @@ router.get(
   authMiddleware,
   requireRole('admin'),
   adminController.getUsers
-);
+)
 
 // PSEUDO: Change user status
 router.patch(
@@ -54,10 +60,10 @@ router.patch(
   requireRole('admin'),
   validate([
     param('id').isInt({ min: 1 }),
-    body('status').isIn(['active', 'suspended']),
+    body('status').isIn(['active', 'suspended'])
   ]),
   adminController.changeUserStatus
-);
+)
 
 // PSEUDO: Low stock products
 router.get(
@@ -65,6 +71,6 @@ router.get(
   authMiddleware,
   requireRole('admin'),
   adminController.lowStockProducts
-);
+)
 
-export default router;
+export default router
